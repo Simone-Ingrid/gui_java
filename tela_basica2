@@ -1,0 +1,15 @@
+import javax.swing.*;
+
+public class example1{
+    public static void main(String args[]) {
+
+        JFrame a = new JFrame("Exemplo 1");
+        JButton b = new JButton("Clique aqui");
+
+        b.setBounds(50,90,100,30);
+        a.add(b);
+        a.setSize(300,300);
+        a.setLayout(null);
+        a.setVisible(true);
+    }
+}
