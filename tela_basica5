@@ -1,0 +1,87 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TelaDeCalculo {
+
+    public static void main(String[] args) {
+        // Criar a primeira tela (tela de cálculo)
+        JFrame frame = new JFrame("Tela de Cálculo");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Painel para a primeira tela
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        colocarComponentes(panel);
+
+        // Exibir a tela de cálculo
+        frame.setVisible(true);
+    }
+
+    private static void colocarComponentes(JPanel panel) {
+        panel.setLayout(null);
+
+        // Rótulo e campo de texto para o primeiro número
+        JLabel label1 = new JLabel("Número 1:");
+        label1.setBounds(10, 20, 80, 25);
+        panel.add(label1);
+
+        JTextField numero1Text = new JTextField(20);
+        numero1Text.setBounds(100, 20, 165, 25);
+        panel.add(numero1Text);
+
+        // Rótulo e campo de texto para o segundo número
+        JLabel label2 = new JLabel("Número 2:");
+        label2.setBounds(10, 50, 80, 25);
+        panel.add(label2);
+
+        JTextField numero2Text = new JTextField(20);
+        numero2Text.setBounds(100, 50, 165, 25);
+        panel.add(numero2Text);
+
+        // Botão para calcular
+        JButton calcularButton = new JButton("Calcular");
+        calcularButton.setBounds(100, 80, 165, 25);
+        panel.add(calcularButton);
+
+        // Adiciona ActionListener ao botão
+        calcularButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Pega os números do usuário
+                    double numero1 = Double.parseDouble(numero1Text.getText());
+                    double numero2 = Double.parseDouble(numero2Text.getText());
+
+                    // Faz o cálculo (soma dos dois números)
+                    double resultado = numero1 + numero2;
+
+                    // Chama o método para abrir a segunda tela com o resultado
+                    abrirTelaResultado(resultado);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, insira números válidos.");
+                }
+            }
+        });
+    }
+
+    // Método para abrir a segunda tela e mostrar o resultado
+    private static void abrirTelaResultado(double resultado) {
+        // Criar a segunda tela (tela de resultado)
+        JFrame resultadoFrame = new JFrame("Resultado");
+        resultadoFrame.setSize(300, 100);
+        resultadoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Painel para a segunda tela
+        JPanel panel = new JPanel();
+        resultadoFrame.add(panel);
+
+        // Adiciona um rótulo para exibir o resultado
+        JLabel resultadoLabel = new JLabel("Resultado: " + resultado);
+        panel.add(resultadoLabel);
+
+        // Exibir a segunda tela
+        resultadoFrame.setVisible(true);
+    }
+}
