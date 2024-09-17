@@ -1,0 +1,66 @@
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TelaPrincipal {
+
+    public static void main(String[] args) {
+        // Criar a tela principal (primeira janela)
+        JFrame frame = new JFrame("Tela Principal");
+        frame.setSize(300, 150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Painel para adicionar componentes
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        placeComponents(panel);
+        
+        // Exibir a janela
+        frame.setVisible(true);
+    }
+
+    private static void placeComponents(JPanel panel) {
+        panel.setLayout(null);
+
+        // Rótulo na tela principal
+        JLabel label = new JLabel("Clique no botão para abrir outra tela");
+        label.setBounds(50, 20, 200, 25);
+        panel.add(label);
+
+        // Botão na tela principal
+        JButton button = new JButton("Abrir nova tela");
+        button.setBounds(80, 60, 140, 25);
+        panel.add(button);
+
+        // Adiciona ActionListener ao botão
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ao clicar, abre a segunda tela
+                abrirNovaTela();
+            }
+        });
+    }
+
+    // Método para abrir a segunda tela
+    private static void abrirNovaTela() {
+        // Criar a nova tela (segunda janela)
+        JFrame novaTela = new JFrame("Nova Tela");
+        novaTela.setSize(250, 100);
+        novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Fecha apenas essa janela
+
+        // Painel para a segunda tela
+        JPanel panel = new JPanel();
+        novaTela.add(panel);
+
+        // Adiciona um rótulo simples na segunda tela
+        JLabel label = new JLabel("Esta é a nova tela!");
+        panel.add(label);
+
+        // Exibir a segunda tela
+        novaTela.setVisible(true);
+    }
+}
