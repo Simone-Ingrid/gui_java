@@ -1,0 +1,38 @@
+import javax.swing.*;
+
+public class telaBasica1 {
+    public static void main(String[] args) {
+        // Criar a janela
+        JFrame frame = new JFrame("Minha Primeira Tela");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Criar um painel
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        placeComponents(panel);
+
+        // Tornar a janela visível
+        frame.setVisible(true);
+    }
+
+    private static void placeComponents(JPanel panel) {
+        // Layout do painel
+        panel.setLayout(null);
+
+        // Criar um rótulo
+        JLabel userLabel = new JLabel("Usuário:");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+
+        // Campo de texto
+        JTextField userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        panel.add(userText);
+
+        // Criar um botão
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(10, 80, 80, 25);
+        panel.add(loginButton);
+    }
+}
