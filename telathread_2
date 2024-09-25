@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.concurrent.ExecutionException;
+
+public class TelaSwingWorker {
+    public static void main(String[] args) {
+        // Criando o frame
+        JFrame frame = new JFrame("Exemplo com SwingWorker");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 150);
+        frame.setLayout(new FlowLayout());
+
+        // Label que será atualizada
+        JLabel label = new JLabel("Aguardando tarefa...");
+        frame.add(label);
+
+        // Botão para iniciar a tarefa em segundo plano
+        JButton botao = new JButton("Iniciar tarefa");
+        frame.add(botao);
+
+        // Ação ao clicar no botão
+        botao.addActionListener(e -> {
+            // Criação de um SwingWorker para realizar a tarefa em segundo plano
+            SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+                @Override
+                protected String doInBackground() throws Exception {
+                    // Simulando uma tarefa demorada
+                    Thread.sleep(5000);
+                    return "Tarefa concluída com sucesso!";
+                }
+
+                @Override
+                protected void done() {
+                    // Atualizando a interface gráfica após a conclusão da tarefa
+                    try {
+                        String result = get(); // Obtendo o resultado da tarefa
+                        label.setText(result);
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            // Executando o SwingWorker
+            worker.execute();
+        });
+
+        frame.setVisible(true);
+    }
+}
