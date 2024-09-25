@@ -1,0 +1,59 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+public class TelaSwingWorkerProgress {
+    public static void main(String[] args) {
+        // Criando o frame
+        JFrame frame = new JFrame("Exemplo com SwingWorker e Progresso");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 150);
+        frame.setLayout(new FlowLayout());
+
+        // Label e barra de progresso
+        JLabel label = new JLabel("Progresso: 0%");
+        frame.add(label);
+
+        JProgressBar progressBar = new JProgressBar(0, 100);
+        frame.add(progressBar);
+
+        // Botão para iniciar a tarefa em segundo plano
+        JButton botao = new JButton("Iniciar tarefa");
+        frame.add(botao);
+
+        // Ação ao clicar no botão
+        botao.addActionListener(e -> {
+            // Criação de um SwingWorker para realizar a tarefa em segundo plano com progresso
+            SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    // Simulando uma tarefa demorada com progresso
+                    for (int i = 0; i <= 100; i++) {
+                        Thread.sleep(100); // Simulando tempo de execução
+                        publish(i); // Publicando o progresso
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void process(List<Integer> chunks) {
+                    // Atualizando a barra de progresso
+                    int progress = chunks.get(chunks.size() - 1);
+                    label.setText("Progresso: " + progress + "%");
+                    progressBar.setValue(progress);
+                }
+
+                @Override
+                protected void done() {
+                    // Atualização final após a conclusão da tarefa
+                    label.setText("Tarefa concluída!");
+                }
+            };
+
+            // Executando o SwingWorker
+            worker.execute();
+        });
+
+        frame.setVisible(true);
+    }
+}
